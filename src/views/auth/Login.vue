@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="bg-login relative">
+    <div class="bg-login mobile-width-constraint relative">
         <div
             class="login-form-container flex flex-col items-center justify-center justify-items-center content-center gap-4"
         >
@@ -28,7 +28,7 @@
                 @click="googleLoginHandler"
                 alt="Sign In"
             >
-                <IconGoogle />
+                <IconGoogle width="25px" />
                 Login with Google
             </button>
 
@@ -135,7 +135,7 @@ export default {
                 setTimeout(async () => {
                     await User.set(data.data.token);
                     UserGoogle.set(id_token);
-                    this.$router.push({ name: "dashboard" });
+                    this.$router.push({ name: "home" });
                     this.loading = false;
                 }, 1000);
             } catch (error) {
@@ -177,12 +177,12 @@ export default {
 
 <style lang="scss" scoped>
 .bg-login {
-    @apply max-w-md m-auto h-screen overflow-hidden bg-no-repeat bg-cover flex flex-col justify-center items-center;
+    @apply h-screen overflow-hidden bg-no-repeat bg-cover flex flex-col justify-center items-center;
     background-image: url("@/assets/images/bg-login.png");
 }
 
 .login-form-container {
-    @apply w-[90%] lg:w-2/4 min-h-[25rem] p-8 bg-white;
+    @apply w-[85%] lg:w-2/4 min-h-[25rem] p-8 px-6 bg-white;
 
     border-radius: 60px;
 }

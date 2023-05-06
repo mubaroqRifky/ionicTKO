@@ -13,3 +13,7 @@
 #app {
     @apply flex h-screen w-screen overflow-hidden;
 }
+
+.mobile-width-constraint {
+    @apply max-w-md w-full m-auto;
+}

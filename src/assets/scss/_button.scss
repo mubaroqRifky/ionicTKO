@@ -15,11 +15,19 @@ button {
     }
 }
 
+.btn.btn-sm {
+    @apply px-4 py-1 text-xs;
+}
+
 .btn-primary {
     @apply bg-success hover:bg-[#1ba7f3];
 
     &:disabled {
         @apply bg-[#add8e6] hover:bg-[#add8e6];
+    }
+
+    &:active {
+        @apply bg-[#25b3ff];
     }
 
     &:focus {
@@ -28,14 +36,18 @@ button {
 }
 
 .btn-secondary {
-    @apply bg-warning hover:bg-[#ffd248];
+    @apply bg-primary hover:bg-[#f74e4e];
 
     &:disabled {
-        @apply bg-[#deb887] hover:bg-[#deb887];
+        @apply bg-[#ee8c8c] hover:bg-[#ee8c8c];
+    }
+
+    &:active {
+        @apply bg-[#ff2a2a];
     }
 
     &:focus {
-        @apply outline-2 outline-offset-1 outline-orange-light;
+        @apply outline-2 outline-offset-1 outline-red-light;
     }
 }
 
@@ -77,4 +89,13 @@ button {
 
 .text-link {
     @apply text-success hover:text-primary transition-all flex items-center gap-2 text-sm;
+}
+
+.card-button-container {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+
+    @media only screen and (max-width: 426px) {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
 }

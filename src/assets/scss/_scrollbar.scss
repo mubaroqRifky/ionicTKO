@@ -17,12 +17,12 @@
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
-        background: $secondary;
+        background: $primary;
         border-radius: 10px;
     }
 
     /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
-        background: $secondaryTransparent;
+        background: $primaryTransparent;
     }
 }
