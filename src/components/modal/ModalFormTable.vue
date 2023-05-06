@@ -5,7 +5,7 @@
         @click.self.stop="$emit('close')"
     >
         <div
-            class="bg-gray rounded-xl grid w-[90%] absolute mt-10 left-1/2 -translate-x-1/2 overflow-hidden"
+            class="bg-softGray rounded-xl grid w-[90%] absolute mt-10 left-1/2 -translate-x-1/2 overflow-hidden"
             :class="classContainer"
         >
             <header class="p-6 shadow-sm bg-white">

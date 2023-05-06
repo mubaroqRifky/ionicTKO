@@ -75,6 +75,6 @@ export default {
 
 <style lang="scss">
 .input-search {
-    @apply w-full text-sm rounded-2xl px-5 border-lightGray border outline-none outline-offset-0 focus:outline-primaryTransparent focus:border-primaryOutline;
+    @apply w-full text-sm rounded-2xl px-5 border-gray border outline-none outline-offset-0 focus:outline-primaryTransparent focus:border-primaryOutline;
 }
 </style>

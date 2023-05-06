@@ -13,14 +13,14 @@
         <h2 class="flex-1 text-center font-bold text-md">Pembayaran</h2>
     </header>
 
-    <div class="sticky top-14 z-10 bg-gray p-4">
+    <div class="sticky top-14 z-10 bg-softGray p-4">
         <InputSearch placeholder="Search" :icon="true" />
 
         <div
             class="flex gap-1 items-center justify-end mt-4"
             style="font-size: 0.7rem"
         >
-            <span>Berdasarkan tanggal</span>
+            <span>Filter by date</span>
             <IconFilter />
         </div>
     </div>

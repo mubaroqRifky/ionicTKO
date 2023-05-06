@@ -13,7 +13,7 @@
         <h2 class="flex-1 text-center font-bold text-md">Customer</h2>
     </header>
 
-    <div class="sticky top-14 z-10 bg-gray p-4">
+    <div class="sticky top-14 z-10 bg-softGray p-4">
         <InputSearch placeholder="Cari Customer" :icon="true" />
     </div>
 

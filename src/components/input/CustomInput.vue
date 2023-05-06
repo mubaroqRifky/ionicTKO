@@ -282,7 +282,7 @@ export default {
 
 <style lang="scss">
 .input-base {
-    @apply rounded-md px-4 py-4 text-sm w-full outline-2;
+    @apply rounded-xl px-4 py-4 text-sm w-full outline-2 border border-solid border-gray;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
 }
 
@@ -383,14 +383,13 @@ export default {
 
 .vs__dropdown-toggle,
 .dp__input_reg {
-    /* border: 1px solid black !important; */
-    border: none;
-    border-radius: 0.375rem !important;
+    border: 1px solid #ddd !important;
+    border-radius: 0.75rem !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
     @apply bg-white px-4 py-3.5;
 }
 .dp__disabled {
-    border-color: #b7bcc5 !important;
+    border-color: #ddd !important;
 }
 
 .dp__input_icon {
@@ -407,7 +406,7 @@ export default {
 .vs--disabled {
     .vs__dropdown-toggle {
         @apply bg-softGray;
-        border-color: #b7bcc5 !important;
+        border-color: #ddd !important;
     }
 
     .vs__search {

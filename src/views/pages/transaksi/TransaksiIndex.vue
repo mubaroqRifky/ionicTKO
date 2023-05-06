@@ -1,6 +1,6 @@
 <template lang="">
     <header
-        class="px-6 bg-primary text-white shadow-sm flex gap-4 items-center justify-between fixed left-0 right-0 h-14 z-30"
+        class="px-6 bg-primary shadow-sm flex gap-4 items-center justify-between fixed left-0 right-0 h-14 z-30"
     >
         <!-- <button
             aria-label="Back Button"
@@ -15,7 +15,7 @@
         </div>
     </header>
 
-    <section class="sticky top-14 z-20 text-sm bg-gray">
+    <section class="sticky top-14 z-20 text-sm bg-softGray">
         <div
             class="flex overflow-x-auto scroll-hidden border-b-4 border-solid border-darkGray"
         >
@@ -33,7 +33,7 @@
         </div>
     </section>
 
-    <div class="sticky top-[7rem] z-10 bg-gray p-4">
+    <div class="sticky top-[7rem] z-10 bg-softGray p-4">
         <div
             class="flex gap-1 items-center justify-end"
             style="font-size: 0.7rem"

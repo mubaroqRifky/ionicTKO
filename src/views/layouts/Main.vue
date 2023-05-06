@@ -17,6 +17,6 @@ export default {
 
 <style lang="scss">
 #main {
-    @apply bg-gray flex-1 flex flex-col overflow-auto;
+    @apply bg-softGray flex-1 flex flex-col overflow-auto;
 }
 </style>

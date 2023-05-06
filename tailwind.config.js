@@ -14,7 +14,7 @@ module.exports = {
             secondaryOutline: "#01954957",
 
             white: "#ffffff",
-            gray: "#F5F5F5",
+            gray: "#dddddd",
             softGray: "#F2F2F2",
             lightGray: "#E9E9E9",
             darkGray: "#9ca3af",

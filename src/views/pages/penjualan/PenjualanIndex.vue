@@ -32,8 +32,10 @@
 <script>
 import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
 
+import CustomInput from "@/components/input/CustomInput.vue";
+
 export default {
-    components: { IconArrowLeft },
+    components: { IconArrowLeft, CustomInput },
 };
 </script>
 

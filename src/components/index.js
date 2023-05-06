@@ -14,9 +14,9 @@ const ModalConfirmation = defineAsyncComponent(() =>
 const ModalSecondary = defineAsyncComponent(() =>
     import("./modal/ModalSecondary.vue")
 );
-const CustomInput = defineAsyncComponent(() =>
-    import("./input/CustomInput.vue")
-);
+// const CustomInput = defineAsyncComponent(() =>
+//     import("./input/CustomInput.vue")
+// );
 const InputSearch = defineAsyncComponent(() =>
     import("./input/InputSearch.vue")
 );
@@ -52,7 +52,7 @@ const components = {
     Header,
     ModalConfirmation,
     ModalSecondary,
-    CustomInput,
+    // CustomInput,
     InputSearch,
     ContentContainer,
     CardButton,
