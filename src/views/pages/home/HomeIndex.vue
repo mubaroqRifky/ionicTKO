@@ -1,5 +1,5 @@
 <template lang="">
-    <section class="px-4 py-6 grid gap-6">
+    <section class="px-4 py-6 grid gap-4">
         <div class="card-container">
             <div class="px-6 py-6 pr-5 flex gap-4">
                 <div class="rounded-full bg-darkGray w-20 h-20 object-contain">
@@ -11,8 +11,8 @@
                     <p>Jawa Timur</p>
                 </div>
                 <div class="grid">
-                    <button class="self-start text-darkGray">
-                        <IconBell width="30px" height="25px" />
+                    <button class="self-start text-gray-dark">
+                        <IconBell width="30px" height="22px" />
                     </button>
                     <button
                         class="self-end text-primary"
@@ -26,7 +26,10 @@
 
         <div class="card-container flex items-center justify-center">
             <div class="p-6 grid grid-cols-2 gap-6 justify-items-center">
-                <button class="grid gap-2 justify-items-center text-sm">
+                <button
+                    class="grid gap-2 justify-items-center text-xs"
+                    @click="$router.push({ name: 'penjualan' })"
+                >
                     <div
                         class="rounded-full bg-primary w-14 h-14 object-contain flex justify-center items-center text-white"
                     >
@@ -35,7 +38,10 @@
                     <p>Penjualan</p>
                 </button>
 
-                <button class="grid gap-2 justify-items-center text-sm">
+                <button
+                    class="grid gap-2 justify-items-center text-xs"
+                    @click="$router.push({ name: 'transaksi' })"
+                >
                     <div
                         class="rounded-full bg-primary w-14 h-14 object-contain flex justify-center items-center text-white"
                     >
@@ -44,7 +50,10 @@
                     <p>List Transaksi</p>
                 </button>
 
-                <button class="grid gap-2 justify-items-center text-sm">
+                <button
+                    class="grid gap-2 justify-items-center text-xs"
+                    @click="$router.push({ name: 'customer' })"
+                >
                     <div
                         class="rounded-full bg-primary w-14 h-14 object-contain flex justify-center items-center text-white"
                     >
@@ -53,7 +62,10 @@
                     <p>Customer</p>
                 </button>
 
-                <button class="grid gap-2 justify-items-center text-sm">
+                <button
+                    class="grid gap-2 justify-items-center text-xs"
+                    @click="$router.push({ name: 'pembayaran' })"
+                >
                     <div
                         class="rounded-full bg-primary w-14 h-14 object-contain flex justify-center items-center text-white"
                     >
@@ -65,12 +77,12 @@
         </div>
 
         <div class="card-container overflow-hidden">
-            <div class="px-6 py-3 flex gap-4 bg-primary text-white">
+            <div class="px-4 py-3 flex gap-4 bg-primary text-white">
                 List Transaksi
             </div>
-            <ul class="text-sm max-h-4xl overflow-auto scrollbar-secondary">
+            <ul class="text-xs max-h-4xl overflow-auto scrollbar-secondary">
                 <li
-                    class="flex px-6 py-4 gap-2 justify-between"
+                    class="flex px-4 py-4 gap-2 justify-between"
                     v-for="(item, index) in 50"
                     :key="index"
                 >
@@ -183,10 +195,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.card-container {
-    @apply bg-white border border-solid border-lightGray;
-    box-shadow: 0px 6px 33px -2px rgba(0, 0, 0, 0.07);
-    border-radius: 19px;
-}
-</style>
+<style lang="scss"></style>

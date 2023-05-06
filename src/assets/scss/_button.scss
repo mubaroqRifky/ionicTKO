@@ -5,7 +5,7 @@ button {
 }
 
 .btn {
-    @apply rounded-lg text-sm text-white flex gap-2 items-center justify-center px-10 py-2 whitespace-nowrap;
+    @apply rounded-lg text-base text-white flex gap-2 items-center justify-center px-10 py-3 whitespace-nowrap;
     position: relative;
     overflow: hidden;
     transition: background 100ms;

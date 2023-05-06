@@ -1,5 +1,5 @@
 <template lang="">
-    <span class="relative inline-block rounded-xl" :class="className">
+    <span class="relative block rounded-xl" :class="className">
         <input
             type="text"
             :placeholder="placeholder"
@@ -36,7 +36,9 @@ export default {
     props: {
         placeholder: "",
         className: "",
-        classInput: "",
+        classInput: {
+            default: "py-3",
+        },
         icon: {
             type: Boolean,
             required: false,
@@ -73,6 +75,6 @@ export default {
 
 <style lang="scss">
 .input-search {
-    @apply w-full text-sm rounded-2xl px-5 py-1.5 border-lightGray border outline-none outline-offset-0 focus:outline-primaryTransparent focus:border-primaryOutline;
+    @apply w-full text-sm rounded-2xl px-5 border-lightGray border outline-none outline-offset-0 focus:outline-primaryTransparent focus:border-primaryOutline;
 }
 </style>

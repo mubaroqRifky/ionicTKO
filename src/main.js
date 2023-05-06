@@ -28,6 +28,10 @@ import "@ionic/vue/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+// Package Addition Styles
+import "vue-select/dist/vue-select.css";
+import "@vuepic/vue-datepicker/dist/main.css";
+
 // Custom Styles
 import "./assets/scss/main.scss";
 

@@ -182,7 +182,7 @@ export default {
 }
 
 .login-form-container {
-    @apply w-[85%] lg:w-2/4 min-h-[25rem] p-8 px-6 bg-white;
+    @apply w-[85%] min-h-[25rem] p-8 px-6 bg-white;
 
     border-radius: 60px;
 }

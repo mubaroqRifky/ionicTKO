@@ -87,6 +87,7 @@
                 <textarea
                     v-if="type == 'textarea'"
                     rows="5"
+                    class="h-full"
                     :class="[
                         required && validity.message
                             ? gundul
@@ -201,7 +202,7 @@ export default {
             default: false,
         },
         classContainer: {
-            default: "border-gray-dark",
+            default: "",
         },
         required: {
             type: Boolean,
@@ -281,8 +282,8 @@ export default {
 
 <style lang="scss">
 .input-base {
-    @apply rounded-md px-3 py-2 text-sm w-full border outline-2;
-    border-width: 0.5px;
+    @apply rounded-md px-4 py-4 text-sm w-full outline-2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
 }
 
 .input-border {
@@ -382,15 +383,23 @@ export default {
 
 .vs__dropdown-toggle,
 .dp__input_reg {
-    border: 1px solid black !important;
+    /* border: 1px solid black !important; */
+    border: none;
     border-radius: 0.375rem !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
+    @apply bg-white px-4 py-3.5;
 }
 .dp__disabled {
     border-color: #b7bcc5 !important;
 }
 
+.dp__input_icon {
+    left: auto;
+    right: 0;
+}
+
 .vs__search {
-    padding: 0.3rem 0.7rem !important;
+    padding: 0 !important;
     font-size: 14px !important;
     color: gray !important;
 }
