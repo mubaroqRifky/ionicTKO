@@ -1,0 +1,80 @@
+button {
+    @apply focus:outline-none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn {
+    @apply rounded-lg text-sm text-white flex gap-2 items-center justify-center px-10 py-2 whitespace-nowrap;
+    position: relative;
+    overflow: hidden;
+    transition: background 100ms;
+
+    &:disabled {
+        @apply bg-darkGray hover:bg-darkGray;
+    }
+}
+
+.btn-primary {
+    @apply bg-success hover:bg-[#1ba7f3];
+
+    &:disabled {
+        @apply bg-[#add8e6] hover:bg-[#add8e6];
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-blue-light;
+    }
+}
+
+.btn-secondary {
+    @apply bg-warning hover:bg-[#ffd248];
+
+    &:disabled {
+        @apply bg-[#deb887] hover:bg-[#deb887];
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-orange-light;
+    }
+}
+
+.btn-tertiary {
+    @apply bg-gray-dark hover:bg-[#000000];
+
+    &:disabled {
+        @apply bg-darkGray hover:bg-darkGray;
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-darkGray;
+    }
+}
+
+.btn-danger {
+    @apply bg-danger hover:bg-[#f53b3b];
+
+    &:disabled {
+        @apply bg-darkGray hover:bg-darkGray;
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-darkGray;
+    }
+}
+
+.btn-file {
+    @apply bg-lightGray hover:bg-softGray text-gray-dark text-xs;
+
+    &:disabled {
+        @apply bg-darkGray hover:bg-darkGray;
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-darkGray;
+    }
+}
+
+.text-link {
+    @apply text-success hover:text-primary transition-all flex items-center gap-2 text-sm;
+}

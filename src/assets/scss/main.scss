@@ -1,0 +1,15 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "variables";
+@import "reset";
+@import "utils";
+@import "animation";
+@import "scrollbar";
+
+@import "button";
+
+#app {
+    @apply flex h-screen w-screen overflow-hidden;
+}
