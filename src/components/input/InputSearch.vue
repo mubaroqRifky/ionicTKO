@@ -12,7 +12,7 @@
 
         <IconSearch
             v-if="icon"
-            className="absolute text-primary right-4 top-1/2 -translate-y-1/2 pointer-events-none "
+            className="absolute text-primary right-4 top-1/2 -translate-y-1/2 pointer-events-none"
             width="20px"
         />
 

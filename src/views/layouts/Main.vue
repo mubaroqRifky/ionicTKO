@@ -1,6 +1,6 @@
 <template lang="">
     <!-- <Sidebar /> -->
-    <main id="main" class="mobile-width-constraint scroll-hidden">
+    <main id="main" class="mobile-width-constraint">
         <!-- <Header /> -->
         <router-view></router-view>
     </main>
@@ -12,11 +12,12 @@ import NavBottom from "./NavBottom.vue";
 
 export default {
     components: { NavBottom },
+    methods: {},
 };
 </script>
 
 <style lang="scss">
 #main {
-    @apply bg-softGray flex-1 flex flex-col overflow-auto;
+    @apply bg-softGray flex-1 flex flex-col overflow-hidden;
 }
 </style>

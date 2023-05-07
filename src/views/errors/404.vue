@@ -6,13 +6,13 @@
             <IconTakingOrder />
             <h1 class="text-9xl font-bold">404</h1>
             <h2 class="text-4xl font-bold">Page Not Found</h2>
-            <p>
+            <p class="text-center px-6">
                 The page you are looking for doesn't exist or an other error
                 occured.
             </p>
 
-            <router-link :to="{ name: 'home' }" class="btn btn-primary"
-                >Go to Dashboard Page</router-link
+            <router-link replace :to="{ name: 'home' }" class="btn btn-primary"
+                >Go to Home Page</router-link
             >
         </div>
     </div>

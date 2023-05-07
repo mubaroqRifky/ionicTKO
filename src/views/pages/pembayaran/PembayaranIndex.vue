@@ -1,31 +1,24 @@
 <template lang="">
     <header
-        class="px-4 bg-primary text-white shadow-sm flex items-center fixed left-0 right-0 h-14 z-30"
+        class="px-4 bg-primary text-white shadow-sm flex items-center fixed left-0 right-0 h-14 z-30 mobile-width-constraint"
     >
-        <!-- <button
-            aria-label="Back Button"
-            alt="Back Button"
-            @click="$router.go(-1)"
-        >
-            <IconArrowLeft width="30px" />
-        </button> -->
-
         <h2 class="flex-1 text-center font-bold text-md">Pembayaran</h2>
     </header>
 
     <div class="sticky top-14 z-10 bg-softGray p-4">
         <InputSearch placeholder="Search" :icon="true" />
 
-        <div
-            class="flex gap-1 items-center justify-end mt-4"
-            style="font-size: 0.7rem"
-        >
-            <span>Filter by date</span>
-            <IconFilter />
+        <div class="flex justify-end mt-4" style="font-size: 0.7rem">
+            <button class="flex gap-1 items-center">
+                <span>Filter by date</span>
+                <IconFilter />
+            </button>
         </div>
     </div>
 
-    <section class="mt-10 px-4 py-4 grid gap-4 text-sm">
+    <section
+        class="mt-10 px-4 py-4 grid gap-4 text-sm overflow-auto scroll-hidden"
+    >
         <div
             class="card-container overflow-hidden"
             v-for="(item, index) in 15"

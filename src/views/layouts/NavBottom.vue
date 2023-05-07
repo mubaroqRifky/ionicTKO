@@ -4,6 +4,7 @@
     >
         <router-link
             class="px-2 py-2 grid justify-items-center flex-1 max-w-[80px] nav"
+            replace
             :to="{ name: 'home' }"
         >
             <IconMenuHome width="22px" height="30px" />
@@ -11,6 +12,7 @@
         </router-link>
         <router-link
             class="px-2 py-2 grid justify-items-center flex-1 max-w-[80px] nav"
+            :replace="$route.name == 'home' ? false : true"
             :to="{ name: 'penjualan' }"
         >
             <IconMitra width="30px" height="30px" />
@@ -18,6 +20,7 @@
         </router-link>
         <router-link
             class="px-2 py-2 grid justify-items-center flex-1 max-w-[80px] nav"
+            :replace="$route.name == 'home' ? false : true"
             :to="{ name: 'transaksi' }"
         >
             <IconList width="22px" height="30px" />
@@ -25,6 +28,7 @@
         </router-link>
         <router-link
             class="px-2 py-2 grid justify-items-center flex-1 max-w-[80px] nav"
+            :replace="$route.name == 'home' ? false : true"
             :to="{ name: 'customer' }"
         >
             <IconCustomer width="49px" height="30px" />
@@ -32,6 +36,7 @@
         </router-link>
         <router-link
             class="px-2 py-2 grid justify-items-center flex-1 max-w-[80px] nav"
+            :replace="$route.name == 'home' ? false : true"
             :to="{ name: 'pembayaran' }"
         >
             <IconPembayaran width="25px" height="30px" />

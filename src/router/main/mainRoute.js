@@ -18,5 +18,8 @@ export default [
             ...CustomerRoute,
             ...PembayaranRoute,
         ],
+        meta: {
+            needAuth: true,
+        },
     },
 ];

@@ -1,14 +1,23 @@
 <template lang="">
-    <section class="px-4 py-6 grid gap-4">
+    <section class="px-4 py-6 grid gap-4 overflow-auto scroll-hidden">
         <div class="card-container">
             <div class="px-6 py-6 pr-5 flex gap-4">
-                <div class="rounded-full bg-darkGray w-20 h-20 object-contain">
-                    <img src="" alt="" />
+                <div
+                    class="rounded-full bg-darkGray w-20 h-20 object-contain flex justify-center items-center text-gray-dark"
+                >
+                    <img
+                        v-if="getUserState.picture"
+                        :src="getUserState.picture"
+                        :alt="name"
+                        class="w-full h-full rounded-full"
+                        referrerpolicy="no-referrer"
+                    />
+                    <IconAvatar width="50px" v-else />
                 </div>
                 <div class="grid flex-1 self-center gap-1 text-sm">
-                    <p class="font-bold">Benson</p>
-                    <p>234882348</p>
-                    <p>Jawa Timur</p>
+                    <p class="font-bold">{{ name }}</p>
+                    <p>{{ nik }}</p>
+                    <p>{{ area }}</p>
                 </div>
                 <div class="grid">
                     <button class="self-start text-gray-dark">
@@ -113,10 +122,12 @@ import IconMitra from "@/components/icons/IconMitra.vue";
 import IconList from "@/components/icons/IconList.vue";
 import IconCustomer from "@/components/icons/IconCustomer.vue";
 import IconPembayaran from "@/components/icons/IconPembayaran.vue";
+import IconAvatar from "@/components/icons/IconAvatar.vue";
 
 import Modal from "@/controllers/state/Modal";
 import UserGoogle from "@/controllers/state/UserGoogle";
 import User from "@/controllers/state/User";
+import { G_USER } from "@/store/states/userGoogleState";
 
 import Logout from "@/apis/Logout";
 import Loading from "@/controllers/state/Loading";
@@ -126,6 +137,7 @@ export default {
         return {
             name: "",
             nik: "",
+            area: "Jakarta",
             userData: null,
 
             api: new Logout(),
@@ -140,12 +152,14 @@ export default {
         IconList,
         IconCustomer,
         IconPembayaran,
+        IconAvatar,
     },
     watch: {
         userData(newValue) {
             if (newValue) {
                 this.name = newValue.name;
                 this.nik = newValue.nik;
+                this.area = newValue.area;
             }
         },
     },
@@ -166,7 +180,6 @@ export default {
             }
         },
         confirmLogoutHandler() {
-            console.log("ini");
             try {
                 Modal.logout("Yakin ingin logout?");
                 Modal.onconfirm = this.logoutHandler;
@@ -178,7 +191,7 @@ export default {
             User.remove();
             UserGoogle.remove();
             this.closeModalHandler();
-            this.$router.push({ name: "login" });
+            this.$router.replace({ name: "login" });
         },
         async logoutHandler() {
             Loading.start();
@@ -190,6 +203,25 @@ export default {
             Loading.stop();
             this.removeSession();
         },
+    },
+    created() {
+        const user = localStorage.getItem("_user");
+        const guser = localStorage.getItem("_guser");
+
+        if (user) {
+            const { name, nik } = JSON.parse(user);
+            this.name = name;
+            this.nik = nik;
+        }
+
+        if (guser) {
+            const result = JSON.parse(guser);
+
+            this.$store.dispatch(G_USER.ACTION, {
+                type: G_USER.SET,
+                payload: result,
+            });
+        }
     },
     mounted() {},
 };

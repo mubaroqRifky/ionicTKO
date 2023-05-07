@@ -1,26 +1,46 @@
 <template lang="">
     <header
-        class="px-4 bg-primary text-white shadow-sm flex items-center fixed left-0 right-0 h-14 z-30"
+        class="px-4 bg-primary text-white shadow-sm flex items-center fixed left-0 right-0 h-14 z-30 mobile-width-constraint"
     >
-        <!-- <button
-            aria-label="Back Button"
-            alt="Back Button"
-            @click="$router.go(-1)"
-        >
-            <IconArrowLeft width="30px" />
-        </button> -->
-
         <h2 class="flex-1 text-center font-bold text-md">Penjualan</h2>
     </header>
 
-    <section class="mt-14 px-4 py-7">
+    <section class="mt-14 px-4 py-7 overflow-auto scroll-hidden">
         <div class="grid gap-5">
-            <CustomInput placeholder="Nama Customer" />
-            <CustomInput placeholder="Nama Petani" />
-            <CustomInput placeholder="Nama Petani" type="date" />
-            <CustomInput placeholder="Nama Petani" type="select" />
-            <CustomInput placeholder="Alamat Pengiriman" type="textarea" />
-            <CustomInput placeholder="Keterangan" type="textarea" />
+            <CustomInput
+                placeholder="Nama Customer"
+                required
+                :validity="errors.nm_customer"
+            />
+            <CustomInput
+                placeholder="Nama Petani"
+                required
+                :validity="errors.nm_petani"
+            />
+            <CustomInput
+                placeholder="Tanggal Delivery"
+                type="date"
+                required
+                :validity="errors.tgl_delivery"
+            />
+            <CustomInput
+                placeholder="Kolam Tujuan"
+                type="select"
+                required
+                :validity="errors.kd_kolam"
+            />
+            <CustomInput
+                placeholder="Alamat Pengiriman"
+                type="textarea"
+                required
+                :validity="errors.alamat_kirim"
+            />
+            <CustomInput
+                placeholder="Keterangan"
+                type="textarea"
+                required
+                :validity="errors.keterangan"
+            />
         </div>
 
         <div class="grid mt-5">
@@ -35,6 +55,12 @@ import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
 import CustomInput from "@/components/input/CustomInput.vue";
 
 export default {
+    data() {
+        return {
+            form: {},
+            errors: {},
+        };
+    },
     components: { IconArrowLeft, CustomInput },
 };
 </script>

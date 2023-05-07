@@ -1,7 +1,7 @@
 import BaseAPI from "./BaseAPI";
 
-export default class Kolam extends BaseAPI {
-    path_url = "kolam";
+export default class Order extends BaseAPI {
+    path_url = "order";
 
     /**
      * @payload create, edit {
