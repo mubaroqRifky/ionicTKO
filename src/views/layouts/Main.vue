@@ -44,6 +44,7 @@ export default {
     },
     methods: {
         closeModalHandler() {
+            console.log("close");
             try {
                 Modal.close();
             } catch (error) {
@@ -51,7 +52,6 @@ export default {
             }
         },
     },
-    methods: {},
 };
 </script>
 

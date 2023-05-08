@@ -156,13 +156,6 @@ export default {
         },
     },
     methods: {
-        closeModalHandler() {
-            try {
-                Modal.close();
-            } catch (error) {
-                throw new ErrorHandler(error);
-            }
-        },
         confirmLogoutHandler() {
             try {
                 Modal.logout("Yakin ingin logout?");
@@ -174,7 +167,7 @@ export default {
         removeSession() {
             User.remove();
             UserGoogle.remove();
-            this.closeModalHandler();
+            Modal.close();
             this.$router.replace({ name: "login" });
         },
         async logoutHandler() {
