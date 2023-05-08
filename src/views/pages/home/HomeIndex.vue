@@ -102,17 +102,6 @@
             </ul>
         </div>
     </section>
-
-    <Transition name="ghost">
-        <ModalConfirmation
-            v-if="getModalState.show"
-            :type="getModalState.type"
-            :content="getModalState.content"
-            :subcontent="getModalState.subcontent"
-            @close="closeModalHandler"
-            @proses="Modal.onconfirm"
-        />
-    </Transition>
 </template>
 
 <script>
@@ -141,8 +130,6 @@ export default {
             userData: null,
 
             api: new Logout(),
-
-            Modal,
         };
     },
     components: {
@@ -164,9 +151,6 @@ export default {
         },
     },
     computed: {
-        getModalState() {
-            return Modal.get();
-        },
         getUserState() {
             return this.$store.getters.guser || {};
         },

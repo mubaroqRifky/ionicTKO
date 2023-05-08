@@ -13,11 +13,14 @@
     </header>
 
     <section class="sticky top-14 z-20 text-sm bg-white">
-        <div class="flex overflow-x-auto scroll-hidden relative">
+        <div
+            class="flex overflow-x-auto scroll-hidden relative"
+            id="tab-container"
+        >
             <span
                 class="h-1 w-[6rem] block absolute bottom-0 z-20 transition-all"
                 :style="{
-                    transform: `translateX(${(activeTab - 1) * 100}%)`,
+                    transform: `translateX(${activeTab * 100}%)`,
                     background: borderColor,
                 }"
             ></span>
@@ -44,6 +47,7 @@
 
     <section
         class="mt-10 px-4 py-4 grid gap-4 text-sm overflow-auto scroll-hidden"
+        id="slide-container"
         @scroll="scrollHandler"
     >
         <div
@@ -51,14 +55,14 @@
             v-for="(item, index) in data"
             :key="index"
         >
-            <div class="px-6 py-6">
+            <div class="px-4 py-4 text-sm">
                 <div class="flex justify-end mb-2">
                     <span
                         class="px-4 border border-gray border-solid rounded-md text-white"
                         :style="{
                             fontSize: '0.7rem',
                             background: borderColor,
-                            color: STATUS[activeTab - 1].color,
+                            color: STATUS[activeTab].color,
                         }"
                         >{{ item.status_order_desc }}</span
                     >
@@ -135,35 +139,42 @@ export default {
                 {
                     key: "Open Waiting",
                     text: "Waiting",
-                    value: 1,
+                    value: "OP",
                     bgColor: "#9D762B",
+                    color: "white",
+                },
+                {
+                    key: "Confirmed",
+                    text: "Confirmed",
+                    value: "CF",
+                    bgColor: "green",
                     color: "white",
                 },
                 {
                     key: "Open Aproved",
                     text: "Approve",
-                    value: 2,
+                    value: "AP",
                     bgColor: "#D2A400",
                     color: "white",
                 },
                 {
                     key: "Open Partial",
                     text: "Partial",
-                    value: 3,
+                    value: "PR",
                     bgColor: "#0093D2",
                     color: "white",
                 },
                 {
                     key: "Close",
                     text: "Close",
-                    value: 4,
+                    value: "CL",
                     bgColor: "#FAFF05",
                     color: "black",
                 },
                 {
                     key: "Close With Reason",
                     text: "Ditolak",
-                    value: 5,
+                    value: "CR",
                     bgColor: "red",
                     color: "white",
                 },
@@ -174,9 +185,15 @@ export default {
     watch: {},
     methods: {
         tabHandler(index, item) {
-            this.activeTab = item.value;
+            this.activeTab = index;
             this.borderColor = item.bgColor;
             this.loadDataIndex();
+
+            const tabContainer = document.getElementById("tab-container");
+            tabContainer.scrollTo({
+                behavior: "smooth",
+                left: 96 * index,
+            });
         },
 
         scrollHandler(e) {
@@ -263,12 +280,70 @@ export default {
                 throw new ErrorHandler(error);
             }
         },
+
+        addSlideListener(contentContainer, callback) {
+            contentContainer.addEventListener(
+                "touchstart",
+                (e) =>
+                    (this.start = {
+                        clientX: e.changedTouches[0].clientX,
+                        timeStamp: e.timeStamp,
+                    })
+            );
+
+            contentContainer.addEventListener("touchmove", (e) => {
+                const result = e.changedTouches[0].clientX - this.start.clientX;
+                contentContainer.style.transition = "none";
+                contentContainer.style.transform = `translateX(${
+                    result / 5
+                }px)`;
+            });
+
+            contentContainer.addEventListener("touchend", (e) => {
+                this.end = {
+                    clientX: e.changedTouches[0].clientX,
+                    timeStamp: e.timeStamp,
+                };
+
+                contentContainer.style.transition = `all .2s ease`;
+                contentContainer.style.transform = `none`;
+
+                callback(this.start, this.end);
+            });
+        },
+        slideHandler(start, end) {
+            let active = this.activeTab;
+
+            const { clientX: startClientX, timeStamp: startTimeStamp } = start;
+            const { clientX: endClientX, timeStamp: endTimeStamp } = end;
+
+            if (
+                endClientX - startClientX > 50 &&
+                endTimeStamp - startTimeStamp < 500
+            ) {
+                if (active > 0) {
+                    const currentActive = active - 1;
+                    this.tabHandler(currentActive, this.STATUS[currentActive]);
+                }
+            } else if (
+                startClientX - endClientX > 50 &&
+                endTimeStamp - startTimeStamp < 500
+            ) {
+                if (active < this.STATUS.length - 1) {
+                    const currentActive = active + 1;
+                    this.tabHandler(currentActive, this.STATUS[currentActive]);
+                }
+            }
+        },
     },
     created() {
         this.borderColor = this.STATUS[0].bgColor;
-        this.activeTab = this.STATUS[0].value;
+        this.activeTab = 0;
     },
     mounted() {
+        const contentContainer = document.getElementById("slide-container");
+        this.addSlideListener(contentContainer, this.slideHandler);
+
         this.loadDataIndex();
     },
 };

@@ -291,7 +291,7 @@ export default {
     border-width: 0.5px;
 
     &:disabled {
-        @apply bg-softGray border-none;
+        @apply bg-gray border-none;
     }
 }
 
@@ -302,7 +302,7 @@ export default {
             /* @apply border-gray-dark; */
 
             &:disabled {
-                @apply bg-softGray border-darkGray;
+                @apply bg-gray border-darkGray;
             }
         }
     }
@@ -313,7 +313,7 @@ export default {
             @apply border-danger;
 
             &:disabled {
-                @apply bg-softGray border-darkGray;
+                @apply bg-gray border-darkGray;
             }
         }
 
@@ -405,8 +405,12 @@ export default {
 
 .vs--disabled {
     .vs__dropdown-toggle {
-        @apply bg-softGray;
+        @apply bg-gray;
         border-color: #ddd !important;
+    }
+
+    .vs__open-indicator {
+        @apply bg-gray;
     }
 
     .vs__search {

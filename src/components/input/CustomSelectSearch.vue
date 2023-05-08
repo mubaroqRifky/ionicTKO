@@ -84,8 +84,7 @@
                         :key="index"
                         @click.stop="selectInputHandler(item)"
                     >
-                        <a
-                            href="#"
+                        <p
                             class="block focus:outline-none focus:bg-success focus:text-white p-2 cursor-pointer hover:bg-lightGray hover:text-gray-dark"
                             :class="
                                 this.input_value == item[label_option]
@@ -93,8 +92,9 @@
                                     : ''
                             "
                             @focus="listFocus"
-                            >{{ item[label_option] }}</a
                         >
+                            {{ item[label_option] }}
+                        </p>
                     </li>
 
                     <li
