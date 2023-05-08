@@ -403,6 +403,11 @@ export default {
     color: gray !important;
 }
 
+.vs__selected {
+    padding: 0;
+    margin: 0;
+}
+
 .vs--disabled {
     .vs__dropdown-toggle {
         @apply bg-gray;

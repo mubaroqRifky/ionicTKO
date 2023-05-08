@@ -12,7 +12,17 @@
                 :api="api_customer"
                 class="lg:w-3/4"
                 :reduce="(val) => ({ selected: val.kd_customer, data: val })"
-                label_option="nm_customer"
+                :createOption="
+                    (val) => ({
+                        text: `${val.kd_customer} | ${val.nm_customer}${
+                            val.area_operation_name
+                                ? ' | ' + val.area_operation_name
+                                : ''
+                        }`,
+                        ...val,
+                    })
+                "
+                label_option="text"
                 placeholder="Pilih Customer"
                 :value="form.kd_customer"
                 :required="true"

@@ -40,14 +40,14 @@
 
                 <IconClose
                     v-if="input_value"
-                    className="absolute text-darkGray right-5 top-1/2 -translate-y-1/2 z-10 mr-2.5"
+                    className="absolute text-darkGray right-9 top-1/2 -translate-y-1/2 z-10 mr-2.5"
                     :class="disabled ? 'cursor-not-allowed' : 'cursor-pointer'"
                     @click.stop="!disabled && clearInputHandler()"
                     :bold="true"
                 />
 
                 <IconArrow
-                    className="absolute text-darkGray right-2 top-1/2 -translate-y-1/2 z-10 transform transition-all"
+                    className="absolute text-darkGray right-6 top-1/2 -translate-y-1/2 z-10 transform transition-all"
                     :class="[
                         list_input ? 'rotate-180' : 'rotate-0',
                         disabled ? 'cursor-not-allowed' : 'cursor-pointer',

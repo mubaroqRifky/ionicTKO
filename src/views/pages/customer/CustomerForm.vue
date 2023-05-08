@@ -18,36 +18,56 @@
     <section class="mt-14 px-4 py-7 overflow-auto scroll-hidden">
         <div class="grid gap-5">
             <CustomInput
+                dir="col"
+                class="lg:w-3/4"
                 placeholder="Nama Customer"
                 required
                 :disabled="loading || loadData"
+                :value="form.nm_customer"
                 :validity="errors.nm_customer"
+                @inputs="(val) => inputHandler(val, 'nm_customer')"
             />
             <CustomInput
+                dir="col"
+                class="lg:w-3/4"
                 placeholder="NIK"
                 required
                 :disabled="loading || loadData"
+                :value="form.nik"
                 :validity="errors.nik"
+                @inputs="(val) => inputHandler(val, 'nik')"
             />
             <CustomInput
+                dir="col"
+                class="lg:w-3/4"
                 placeholder="Alamat Customer"
                 type="textarea"
                 required
                 :disabled="loading || loadData"
+                :value="form.customer_address"
                 :validity="errors.customer_address"
+                @inputs="(val) => inputHandler(val, 'customer_address')"
             />
             <CustomInput
+                dir="col"
+                class="lg:w-3/4"
                 placeholder="Nomor Telepon"
                 required
                 :disabled="loading || loadData"
+                :value="form.telp_customer"
                 :validity="errors.telp_customer"
+                @inputs="(val) => inputHandler(val, 'telp_customer')"
             />
             <CustomInput
-                placeholder="Email"
+                dir="col"
+                class="lg:w-3/4"
                 type="email"
+                placeholder="Email"
                 required
                 :disabled="loading || loadData"
+                :value="form.email_customer"
                 :validity="errors.email_customer"
+                @inputs="(val) => inputHandler(val, 'email_customer')"
             />
             <CustomSelect
                 dir="col"
@@ -57,8 +77,7 @@
                     (val) => ({ selected: val.marea_operation_id, data: val })
                 "
                 label_option="marea_operation_name"
-                placeholder="Pilih Area Operation"
-                label="Area Operation"
+                placeholder="Pilih Area"
                 :value="form.area_operation_code"
                 :required="true"
                 :disabled="loading || loadData"
@@ -70,12 +89,11 @@
             <CustomInput
                 dir="col"
                 class="lg:w-3/4"
-                label="Area"
                 type="select"
                 required
                 :disabled="loading || loadData || !form.area_operation_code"
                 :options="options.sub_area"
-                placeholder="Pilih Area"
+                placeholder="Pilih Sub Area"
                 :value="form.sub_area"
                 :validity="errors.sub_area"
                 @inputs="(val) => selectHandler(val, 'sub_area')"
@@ -83,11 +101,15 @@
                 optionLabel="marea_name"
             />
             <CustomInput
-                placeholder="Jumlah Kolam"
+                dir="col"
+                class="lg:w-3/4"
                 type="number"
+                placeholder="Jumlah Kolam"
                 required
                 :disabled="loading || loadData"
+                :value="form.jml_kolam"
                 :validity="errors.jml_kolam"
+                @inputs="(val) => inputHandler(val, 'jml_kolam')"
             />
             <CustomSelect
                 dir="col"
@@ -102,7 +124,6 @@
                 "
                 label_option="text"
                 placeholder="Pilih Pakan"
-                label="Pakan"
                 :value="form.kd_pakan1"
                 :required="true"
                 :disabled="loading || loadData"
@@ -112,12 +133,11 @@
             <CustomInput
                 dir="col"
                 class="lg:w-3/4"
-                label="Metode Pembayaran"
+                placeholder="Metode Pembayaran"
                 type="select"
                 required
                 :disabled="loading || loadData"
                 :options="options.metode_bayar"
-                placeholder="Pilih Metode Pembayaran"
                 :value="form.metode_bayar"
                 :validity="errors.metode_bayar"
                 @inputs="(val) => selectHandler(val, 'metode_bayar')"
@@ -125,11 +145,15 @@
                 optionLabel="method_name"
             />
             <CustomInput
+                dir="col"
+                class="lg:w-3/4"
                 placeholder="Keterangan"
                 type="textarea"
                 required
                 :disabled="loading || loadData"
+                :value="form.keterangan"
                 :validity="errors.keterangan"
+                @inputs="(val) => inputHandler(val, 'keterangan')"
             />
         </div>
 
@@ -211,8 +235,10 @@ export default {
         };
     },
     components: { IconArrowLeft, IconEdit, InputSearch, IconAdd, CustomInput },
-    getErrorsState(newValue) {
-        this.errors = newValue;
+    watch: {
+        getErrorsState(newValue) {
+            this.errors = newValue;
+        },
     },
     computed: {
         loading() {
@@ -269,6 +295,9 @@ export default {
             }
         },
 
+        inputHandler(val, key) {
+            this.form[key] = val;
+        },
         async selectSearchHandler({ selected, data }, key) {
             try {
                 this[key] = selected || "";
@@ -276,12 +305,12 @@ export default {
                     case "area_operation_code":
                         if (selected && data) {
                             await this.getDataSubArea(selected);
-                            this.form[key] = data?.marea_operation_name || "";
+                            this.form[key] = data?.marea_operation_id || "";
                         }
                         this.form.sub_area = "";
                         break;
                     case "kd_pakan1":
-                        this.form[key] = data?.mfeed_code || "";
+                        this.form[key] = data?.mfeed_id || "";
                         break;
                     default:
                         break;
