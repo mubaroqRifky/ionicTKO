@@ -12,7 +12,7 @@
         </div>
     </header>
 
-    <section class="sticky top-14 z-20 text-sm bg-white">
+    <section class="sticky top-14 z-20 bg-white">
         <div
             class="flex overflow-x-auto scroll-hidden relative"
             id="tab-container"
@@ -25,9 +25,10 @@
                 }"
             ></span>
             <button
-                class="px-2 min-w-[6rem] h-14 leading-4 transition-all outline-none"
+                class="px-2 min-w-[6rem] h-14 leading-3 transition-all outline-none text-xs"
                 v-for="(item, index) in STATUS"
                 :key="index"
+                :class="activeTab == index ? 'font-bold' : ''"
                 @click="tabHandler(index, item)"
             >
                 {{ item.key }}
@@ -46,7 +47,7 @@
     </div>
 
     <section
-        class="mt-10 px-4 py-4 grid gap-4 text-sm overflow-auto scroll-hidden"
+        class="mt-10 px-4 py-4 grid gap-4 text-sm overflow-auto scroll-hidden h-full"
         id="slide-container"
         @scroll="scrollHandler"
     >
@@ -99,8 +100,14 @@
             </div>
         </div>
 
-        <div v-if="!data.length && !loadData && !loadMore">
-            <p class="text-center text-darkGray text-lg mt-4">No data found.</p>
+        <div
+            class="flex flex-col justify-center text-darkGray"
+            v-if="!data.length && !loadData && !loadMore"
+        >
+            <div class="flex flex-col justify-center items-center gap-2">
+                <IconSearchNotFound width="100px" />
+                <p class="text-center text-base">No data found.</p>
+            </div>
         </div>
     </section>
 </template>
@@ -109,6 +116,7 @@
 import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
 import IconEdit from "@/components/icons/IconEdit.vue";
 import IconFilter from "@/components/icons/IconFilter.vue";
+import IconSearchNotFound from "@/components/icons/IconSearchNotFound.vue";
 
 import InputSearch from "@/components/input/InputSearch.vue";
 
@@ -181,7 +189,13 @@ export default {
             ],
         };
     },
-    components: { IconArrowLeft, IconEdit, IconFilter, InputSearch },
+    components: {
+        IconArrowLeft,
+        IconEdit,
+        IconFilter,
+        InputSearch,
+        IconSearchNotFound,
+    },
     watch: {},
     methods: {
         tabHandler(index, item) {
