@@ -7,15 +7,23 @@
 
     <section class="mt-14 px-4 py-7 overflow-auto scroll-hidden">
         <div class="grid gap-5">
-            <CustomInput
-                placeholder="Nama Customer"
-                required
-                :validity="errors.nm_customer"
+            <CustomSelect
+                dir="col"
+                :api="api_customer"
+                class="lg:w-3/4"
+                :reduce="(val) => ({ selected: val.kd_customer, data: val })"
+                label_option="nm_customer"
+                placeholder="Pilih Customer"
+                :value="form.kd_customer"
+                :required="true"
+                :disabled="loading || loadData"
+                :validity="errors.kd_customer"
+                @select="(val) => selectSearchHandler(val, 'kd_customer')"
             />
             <CustomInput
                 placeholder="Nama Petani"
                 required
-                :validity="errors.nm_petani"
+                :validity="errors.nama_petani"
             />
             <CustomInput
                 placeholder="Tanggal Delivery"
@@ -24,16 +32,10 @@
                 :validity="errors.tgl_delivery"
             />
             <CustomInput
-                placeholder="Kolam Tujuan"
-                type="select"
-                required
-                :validity="errors.kd_kolam"
-            />
-            <CustomInput
                 placeholder="Alamat Pengiriman"
                 type="textarea"
                 required
-                :validity="errors.alamat_kirim"
+                :validity="errors.delivery_address"
             />
             <CustomInput
                 placeholder="Keterangan"
@@ -54,14 +56,39 @@ import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
 
 import CustomInput from "@/components/input/CustomInput.vue";
 
+import InputValidation from "@/controllers/state/InputValidation";
+import Modal from "@/controllers/state/Modal";
+import Loading from "@/controllers/state/Loading";
+
+import Customer from "@/apis/Customer";
+
 export default {
     data() {
         return {
+            api_customer: new Customer(),
+
             form: {},
             errors: {},
         };
     },
     components: { IconArrowLeft, CustomInput },
+    computed: {
+        loading() {
+            return Loading.get();
+        },
+        getErrorsState() {
+            return InputValidation.get();
+        },
+    },
+    methods: {
+        async selectSearchHandler({ selected, data }, key) {
+            try {
+                this[key] = selected || "";
+            } catch (error) {
+                throw new ErrorHandler(error);
+            }
+        },
+    },
 };
 </script>
 

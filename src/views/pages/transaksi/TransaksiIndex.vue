@@ -252,7 +252,7 @@ export default {
             const page = {
                 page: data?._page || 1,
                 per_page: data?._minPage || this.minPage,
-                status: this.activeTab,
+                status: this.STATUS[this.activeTab].value,
                 search,
             };
 
