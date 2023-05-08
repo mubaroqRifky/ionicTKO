@@ -383,13 +383,13 @@ export default {
 
 .vs__dropdown-toggle,
 .dp__input_reg {
-    border: 1px solid #ddd !important;
+    border: 1px solid #9ca3af !important;
     border-radius: 0.75rem !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
     @apply bg-white px-4 py-3.5;
 }
 .dp__disabled {
-    border-color: #ddd !important;
+    border-color: #9ca3af !important;
 }
 
 .dp__input_icon {
@@ -411,7 +411,7 @@ export default {
 .vs--disabled {
     .vs__dropdown-toggle {
         @apply bg-gray;
-        border-color: #ddd !important;
+        border-color: #9ca3af !important;
     }
 
     .vs__open-indicator {

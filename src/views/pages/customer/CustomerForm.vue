@@ -22,7 +22,7 @@
                 class="lg:w-3/4"
                 placeholder="Nama Customer"
                 required
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :value="form.nm_customer"
                 :validity="errors.nm_customer"
                 @inputs="(val) => inputHandler(val, 'nm_customer')"
@@ -32,7 +32,7 @@
                 class="lg:w-3/4"
                 placeholder="NIK"
                 required
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :value="form.nik"
                 :validity="errors.nik"
                 @inputs="(val) => inputHandler(val, 'nik')"
@@ -43,7 +43,7 @@
                 placeholder="Alamat Customer"
                 type="textarea"
                 required
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :value="form.customer_address"
                 :validity="errors.customer_address"
                 @inputs="(val) => inputHandler(val, 'customer_address')"
@@ -53,7 +53,7 @@
                 class="lg:w-3/4"
                 placeholder="Nomor Telepon"
                 required
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :value="form.telp_customer"
                 :validity="errors.telp_customer"
                 @inputs="(val) => inputHandler(val, 'telp_customer')"
@@ -64,7 +64,7 @@
                 type="email"
                 placeholder="Email"
                 required
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :value="form.email_customer"
                 :validity="errors.email_customer"
                 @inputs="(val) => inputHandler(val, 'email_customer')"
@@ -80,7 +80,7 @@
                 placeholder="Pilih Area"
                 :value="form.area_operation_code"
                 :required="true"
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :validity="errors.area_operation_code"
                 @select="
                     (val) => selectSearchHandler(val, 'area_operation_code')
@@ -91,7 +91,12 @@
                 class="lg:w-3/4"
                 type="select"
                 required
-                :disabled="loading || loadData || !form.area_operation_code"
+                :disabled="
+                    loading ||
+                    loadData ||
+                    !form.area_operation_code ||
+                    action == PAGE_ACTION.SHOW
+                "
                 :options="options.sub_area"
                 placeholder="Pilih Sub Area"
                 :value="form.sub_area"
@@ -106,7 +111,7 @@
                 type="number"
                 placeholder="Jumlah Kolam"
                 required
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :value="form.jml_kolam"
                 :validity="errors.jml_kolam"
                 @inputs="(val) => inputHandler(val, 'jml_kolam')"
@@ -126,7 +131,7 @@
                 placeholder="Pilih Pakan"
                 :value="form.kd_pakan1"
                 :required="true"
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :validity="errors.kd_pakan1"
                 @select="(val) => selectSearchHandler(val, 'kd_pakan1')"
             />
@@ -136,7 +141,7 @@
                 placeholder="Metode Pembayaran"
                 type="select"
                 required
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :options="options.metode_bayar"
                 :value="form.metode_bayar"
                 :validity="errors.metode_bayar"
@@ -150,7 +155,7 @@
                 placeholder="Keterangan"
                 type="textarea"
                 required
-                :disabled="loading || loadData"
+                :disabled="loading || loadData || action == PAGE_ACTION.SHOW"
                 :value="form.keterangan"
                 :validity="errors.keterangan"
                 @inputs="(val) => inputHandler(val, 'keterangan')"
@@ -284,10 +289,9 @@ export default {
                 case this.PAGE_ACTION.CREATE:
                     break;
                 case this.PAGE_ACTION.EDIT:
+                case this.PAGE_ACTION.SHOW:
                     if (!id) this.pushNotFound();
                     else this.getDataById(id);
-                    break;
-                case this.PAGE_ACTION.SHOW:
                     break;
                 default:
                     this.pushNotFound();
