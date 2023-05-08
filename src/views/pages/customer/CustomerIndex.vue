@@ -22,7 +22,12 @@
         class="mt-10 px-4 py-4 grid gap-4 text-sm overflow-auto scroll-hidden"
         @scroll="scrollHandler"
     >
-        <div class="card-container" v-for="(item, index) in data" :key="index">
+        <div
+            class="card-container"
+            v-if="!loadData"
+            v-for="(item, index) in data"
+            :key="index"
+        >
             <div class="px-6 py-6" @click="showHandler(item)">
                 <div class="grid grid-cols-2 gap-4">
                     <p class="font-bold">{{ item.nm_customer || "-" }}</p>
@@ -76,7 +81,7 @@ export default {
     data() {
         return {
             page: 1,
-            minPage: 10,
+            minPage: 5,
             totalPage: 1,
             totalData: 1,
             currentTotal: 1,
@@ -101,6 +106,7 @@ export default {
             if (
                 scrollHeight - (scrollTop + clientHeight) <= 5 &&
                 !this.loadData &&
+                !this.loadMore &&
                 this.page < this.totalPage
             ) {
                 this.loadMoreHandler();
@@ -114,8 +120,6 @@ export default {
                 this.loadMore = true;
                 const { data } = await this.api.getData({ params });
 
-                this.data = [...this.data, ...data.data];
-
                 this.totalPage = Math.ceil(
                     data.meta.total / data.meta.per_page
                 );
@@ -123,11 +127,18 @@ export default {
                 this.currentTotal = data.meta.to;
                 this.minPage = data.meta.per_page;
 
-                this.loadMore = false;
+                this.setLoadMoreTimeout(data);
             } catch (error) {
-                this.loadMore = false;
+                this.setLoadMoreTimeout();
                 throw new ErrorHandler(error);
             }
+        },
+        setLoadMoreTimeout(data = [], result = false, timeout = 500) {
+            setTimeout(() => {
+                this.data = [...this.data, ...data.data];
+
+                this.loadMore = result;
+            }, timeout);
         },
 
         showHandler(item) {
@@ -158,6 +169,11 @@ export default {
             const params = this.getSearchParams(data);
             this.getDataIndex(params);
         },
+        setLoadDataTimeout(result = false, timeout = 250) {
+            setTimeout(() => {
+                this.loadData = result;
+            }, timeout);
+        },
         getSearchParams(data, search = "") {
             const page = {
                 page: data?._page || 1,
@@ -183,9 +199,9 @@ export default {
                 this.currentTotal = data.meta.to;
                 this.minPage = data.meta.per_page;
 
-                this.loadData = false;
+                this.setLoadDataTimeout();
             } catch (error) {
-                this.loadData = false;
+                this.setLoadDataTimeout();
                 throw new ErrorHandler(error);
             }
         },

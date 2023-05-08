@@ -240,11 +240,18 @@ export default {
                 this.currentTotal = data.meta.to;
                 this.minPage = data.meta.per_page;
 
-                this.loadMore = false;
+                this.setLoadMoreTimeout(data);
             } catch (error) {
-                this.loadMore = false;
+                this.setLoadMoreTimeout();
                 throw new ErrorHandler(error);
             }
+        },
+        setLoadMoreTimeout(data = [], result = false, timeout = 500) {
+            setTimeout(() => {
+                this.data = [...this.data, ...data.data];
+
+                this.loadMore = result;
+            }, timeout);
         },
 
         searchHandler(e) {
@@ -261,6 +268,11 @@ export default {
         loadDataIndex(data) {
             const params = this.getSearchParams(data);
             this.getDataIndex(params);
+        },
+        setLoadDataTimeout(result = false, timeout = 250) {
+            setTimeout(() => {
+                this.loadData = result;
+            }, timeout);
         },
         getSearchParams(data, search = "") {
             const page = {
@@ -288,9 +300,9 @@ export default {
                 this.currentTotal = data.meta.to;
                 this.minPage = data.meta.per_page;
 
-                this.loadData = false;
+                this.setLoadDataTimeout();
             } catch (error) {
-                this.loadData = false;
+                this.setLoadDataTimeout();
                 throw new ErrorHandler(error);
             }
         },
