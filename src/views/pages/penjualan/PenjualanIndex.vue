@@ -151,6 +151,7 @@
                         class="w-full bg-primary outline-none border-none text-center"
                         type="number"
                         v-model="form_detail[item.kd_benih][0]"
+                        @input="(e) => qtyHandler(item, 'add', e.target.value)"
                     />
                     <button
                         class="font-bold text-lg w-4"
@@ -229,7 +230,7 @@
         </div>
 
         <div class="card-container overflow-hidden">
-            <div class="px-3 py-3 text-xs grid gap-2 text-right">
+            <div class="px-3 py-3 text-sm grid gap-2 text-right">
                 <div class="flex gap-2 items-center">
                     <div class="flex-1"></div>
                     <div class="w-14">Order</div>
@@ -249,7 +250,14 @@
                 </div>
                 <div class="flex flex-col justify-end mt-2">
                     <span>Harga Total</span>
-                    <p class="font-bold">Rp. {{ hagaTotal }}</p>
+                    <p class="font-bold">
+                        {{
+                            new Intl.NumberFormat("id-ID", {
+                                style: "currency",
+                                currency: "IDR",
+                            }).format(hargaTotal)
+                        }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -345,22 +353,33 @@ export default {
             const formDetailArray = Object.values(this.form_detail);
             return !formDetailArray.some((val) => val[0] > 0);
         },
-        hagaTotal() {
+        hargaTotal() {
             return Object.values(this.form_detail).reduce((prev, curr) => {
                 const [qty, price] = curr;
-                if (qty > 0) {
-                    return qty * price;
+                const qtyNumber = Number(qty || 0);
+                const priceNumber = Number(price || 0);
+                const prevNumber = Number(prev || 0);
+
+                console.log();
+
+                if (qtyNumber > 0) {
+                    const result = qtyNumber * priceNumber + prevNumber;
+                    return Number(result.toFixed(2));
                 } else {
-                    return prev;
+                    return Number(prevNumber);
                 }
             }, 0);
         },
     },
     methods: {
-        qtyHandler(item, type) {
+        qtyHandler(item, type, value) {
             // value, harga
             if (type == "plus") {
                 this.form_detail[item.kd_benih][0]++;
+                this.form_detail[item.kd_benih][1] = item.price;
+                this.form_detail[item.kd_benih][2] = item.nm_benih;
+            } else if (type == "add") {
+                this.form_detail[item.kd_benih][0] = Number(value);
                 this.form_detail[item.kd_benih][1] = item.price;
                 this.form_detail[item.kd_benih][2] = item.nm_benih;
             } else {
@@ -369,7 +388,7 @@ export default {
                 this.form_detail[item.kd_benih][2] = item.nm_benih;
             }
 
-            console.log(this.form_detail, "form qty");
+            this.form_detail = { ...this.form_detail };
         },
         inputHandler(val, key) {
             this.form[key] = val;
