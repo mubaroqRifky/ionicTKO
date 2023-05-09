@@ -4,7 +4,7 @@
         @click.self.stop="$emit('close')"
     >
         <div
-            class="modal-body modal-glass relative flex flex-col justify-center px-10 py-5 pt-10"
+            class="modal-body modal-glass relative flex flex-col justify-center px-5 md:px-10 py-5 pt-10"
         >
             <div class="gap-5 flex flex-col items-center">
                 <IconSuccess width="100px" v-if="type == MODAL.SUCCESS" />

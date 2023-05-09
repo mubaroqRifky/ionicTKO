@@ -47,7 +47,7 @@
     </div>
 
     <section
-        class="mt-10 px-4 py-4 grid gap-4 text-sm overflow-auto scroll-hidden h-full"
+        class="mt-10 px-4 py-4 grid gap-4 text-sm overflow-auto scroll-hidden h-full content-start"
         id="slide-container"
         @scroll="scrollHandler"
     >
@@ -101,7 +101,7 @@
         </div>
 
         <div
-            class="flex flex-col justify-center text-darkGray"
+            class="flex flex-col justify-center text-darkGray flex-1"
             v-if="!data.length && !loadData && !loadMore"
         >
             <div class="flex flex-col justify-center items-center gap-2">
@@ -281,6 +281,7 @@ export default {
             const page = {
                 page: data?._page || 1,
                 per_page: data?._minPage || this.minPage,
+                status: this.STATUS[this.activeTab].value,
                 search,
             };
 

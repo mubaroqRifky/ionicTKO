@@ -65,6 +65,8 @@ export default {
 
 <style lang="scss">
 .nav {
+    @apply text-center;
+
     &.router-link-active {
         @apply text-primary;
     }

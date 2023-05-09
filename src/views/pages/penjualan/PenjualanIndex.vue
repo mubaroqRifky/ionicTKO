@@ -57,7 +57,7 @@
                 :disabled="loading || loadData"
                 :value="form.tgl_delivery"
                 :validity="errors.tgl_delivery"
-                @inputs="(val) => inputHandler(val, 'tgl_delivery')"
+                @inputs="(val) => inputDateHandler(val, 'tgl_delivery')"
             />
             <CustomInput
                 placeholder="Alamat Pengiriman"
@@ -116,23 +116,25 @@
                 v-for="(item, index) in details"
                 :key="index"
             >
-                <div class="card-container overlay-hidden p-4 grid gap-4">
+                <div class="card-container overlay-hidden px-3 py-3 grid gap-4">
                     <div class="font-bold text-center text-xs">
                         <div
-                            class="w-full h-32 bg-gray mb-2 rounded-lg overflow-hidden object-contain flex justify-center items-center"
+                            class="w-full h-32 bg-gray mb-2 rounded-xl overflow-hidden object-contain flex justify-center items-center"
                         >
                             <img
                                 v-if="item.image"
                                 :src="item.image"
                                 :alt="item.nm_benih"
-                                class="w-full h-full object-contain overflow-hidden rounded-lg"
+                                class="w-full h-full object-contain overflow-hidden rounded-xl"
                             />
                         </div>
-                        <h3 class="mb-2 text-sm">
+                        <h3 class="mb-2">
                             {{ `${item.nm_benih} - ${item.kd_benih}` }}
                         </h3>
-                        <p>{{ item.size || "-" }}</p>
-                        <p>{{ `${item.price}/${item.unit}` }}</p>
+                        <div style="font-size: 0.7rem">
+                            <p>{{ item.size || "-" }}</p>
+                            <p>{{ `${item.price}/${item.unit}` }}</p>
+                        </div>
                     </div>
                 </div>
 
@@ -165,7 +167,7 @@
                 v-for="(item, index) in 6"
                 :key="index"
             >
-                <div class="card-container overlay-hidden p-4 grid gap-4">
+                <div class="card-container overlay-hidden px-3 py-3 grid gap-4">
                     <div class="font-bold text-center text-xs">
                         <div
                             class="w-full h-32 bg-gray mb-2 rounded-lg overflow-hidden object-contain flex justify-center items-center skeleton"
@@ -206,7 +208,7 @@
         v-if="page_show == PAGE_SHOW.DETAILS"
     >
         <div class="card-container overflow-hidden">
-            <div class="px-4 py-6 text-sm grid gap-4">
+            <div class="px-4 py-4 text-sm grid gap-4">
                 <CustomInput
                     placeholder="Pilih Customer"
                     :value="nm_customer"
@@ -227,11 +229,11 @@
         </div>
 
         <div class="card-container overflow-hidden">
-            <div class="px-4 py-6 text-sm grid gap-2 text-right">
+            <div class="px-3 py-3 text-xs grid gap-2 text-right">
                 <div class="flex gap-2 items-center">
                     <div class="flex-1"></div>
-                    <div class="w-16">Order</div>
-                    <div class="w-28">Harga</div>
+                    <div class="w-14">Order</div>
+                    <div class="w-24">Harga</div>
                 </div>
                 <div
                     class="flex gap-2 items-center border border-solid border-gray-dark rounded-md p-1"
@@ -241,19 +243,21 @@
                     )"
                     :key="index"
                 >
-                    <div class="flex-1">Nama Produk Baru</div>
-                    <div class="w-16">2000</div>
-                    <div class="w-28">Rp 200.000.000</div>
+                    <div class="flex-1 text-left">{{ item[2] }}</div>
+                    <div class="w-14">{{ item[0] }}</div>
+                    <div class="w-24">Rp {{ item[1] }}</div>
                 </div>
                 <div class="flex flex-col justify-end mt-2">
                     <span>Harga Total</span>
-                    <p class="font-bold">Rp. 600.000.000</p>
+                    <p class="font-bold">Rp. {{ hagaTotal }}</p>
                 </div>
             </div>
         </div>
 
         <div class="grid mt-5">
-            <button class="btn btn-secondary">Simpan</button>
+            <button class="btn btn-secondary" @click="prosesHandler">
+                Simpan
+            </button>
         </div>
     </section>
 </template>
@@ -271,6 +275,8 @@ import Loading from "@/controllers/state/Loading";
 
 import Customer from "@/apis/Customer";
 import Order from "@/apis/Order";
+
+import moment from "moment";
 
 export default {
     data() {
@@ -312,6 +318,11 @@ export default {
         };
     },
     components: { IconArrowLeft, IconFilter, IconSearchNotFound, CustomInput },
+    watch: {
+        getErrorsState(newValue) {
+            this.errors = newValue;
+        },
+    },
     computed: {
         loading() {
             return Loading.get();
@@ -334,6 +345,16 @@ export default {
             const formDetailArray = Object.values(this.form_detail);
             return !formDetailArray.some((val) => val[0] > 0);
         },
+        hagaTotal() {
+            return Object.values(this.form_detail).reduce((prev, curr) => {
+                const [qty, price] = curr;
+                if (qty > 0) {
+                    return qty * price;
+                } else {
+                    return prev;
+                }
+            }, 0);
+        },
     },
     methods: {
         qtyHandler(item, type) {
@@ -341,15 +362,22 @@ export default {
             if (type == "plus") {
                 this.form_detail[item.kd_benih][0]++;
                 this.form_detail[item.kd_benih][1] = item.price;
+                this.form_detail[item.kd_benih][2] = item.nm_benih;
             } else {
                 this.form_detail[item.kd_benih][0]--;
                 this.form_detail[item.kd_benih][1] = item.price;
+                this.form_detail[item.kd_benih][2] = item.nm_benih;
             }
 
             console.log(this.form_detail, "form qty");
         },
         inputHandler(val, key) {
             this.form[key] = val;
+        },
+        inputDateHandler(date, key) {
+            const result = moment(date).format("YYYY-MM-DD");
+
+            this.form[key] = result;
         },
         async selectSearchHandler({ selected, data }, key) {
             try {
@@ -508,6 +536,43 @@ export default {
                     this.form_detail[val.kd_benih] = [0];
                 }
             });
+        },
+
+        prosesHandler() {
+            Modal.confirm("Yakin ingin simpan data?");
+            Modal.onconfirm = this.submitData;
+        },
+        async submitData() {
+            try {
+                Loading.start();
+
+                const detail = [];
+                for (const key in this.form_detail) {
+                    if (this.form_detail[key][0] > 0) {
+                        detail.push({
+                            kd_benih: key,
+                            qty: this.form_detail[key][0],
+                        });
+                    }
+                }
+
+                this.form.detail = detail;
+                const { data } = await this.api.postData(this.form);
+                Modal.success(data.message);
+                Modal.onclose = () => {
+                    this.$router.replace({ name: "home" });
+                };
+                Loading.stop();
+            } catch (error) {
+                Loading.stop();
+                Modal.close();
+                if (
+                    error.response.data.data.exception == "ValidationException"
+                ) {
+                    this.pageHandler(this.PAGE_SHOW.FORM);
+                }
+                throw new ErrorHandler(error);
+            }
         },
     },
     created() {
