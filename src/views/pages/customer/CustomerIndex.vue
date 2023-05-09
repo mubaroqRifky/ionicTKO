@@ -155,7 +155,11 @@ export default {
         },
 
         searchHandler(e) {
-            const value = e.target.value;
+            const value = e.target.value || "";
+            this.search = value;
+            this.page = 1;
+            this.data = [];
+
             clearTimeout(this.timeoutSearch);
             this.timeoutSearch = setTimeout(() => {
                 this.searchDataHandler(value);

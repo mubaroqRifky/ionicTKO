@@ -218,6 +218,7 @@ export default {
             if (
                 scrollHeight - (scrollTop + clientHeight) <= 5 &&
                 !this.loadData &&
+                !this.loadMore &&
                 this.page < this.totalPage
             ) {
                 this.loadMoreHandler();
@@ -230,8 +231,6 @@ export default {
 
                 this.loadMore = true;
                 const { data } = await this.api.getData({ params });
-
-                this.data = [...this.data, ...data.data];
 
                 this.totalPage = Math.ceil(
                     data.meta.total / data.meta.per_page
@@ -255,7 +254,11 @@ export default {
         },
 
         searchHandler(e) {
-            const value = e.target.value;
+            const value = e.target.value || "";
+            this.search = value;
+            this.page = 1;
+            this.data = [];
+
             clearTimeout(this.timeoutSearch);
             this.timeoutSearch = setTimeout(() => {
                 this.searchDataHandler(value);
@@ -278,7 +281,6 @@ export default {
             const page = {
                 page: data?._page || 1,
                 per_page: data?._minPage || this.minPage,
-                status: this.STATUS[this.activeTab].value,
                 search,
             };
 

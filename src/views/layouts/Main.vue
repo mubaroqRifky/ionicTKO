@@ -7,7 +7,6 @@
     <NavBottom
         v-if="
             $route.name == 'home' ||
-            $route.name == 'penjualan' ||
             $route.name == 'transaksi' ||
             $route.name == 'customer' ||
             $route.name == 'pembayaran'
