@@ -5,7 +5,13 @@
         <button
             aria-label="Back Button"
             alt="Back Button"
-            @click="$router.go(-1)"
+            @click="
+                $router.push({
+                    name: 'transaksi',
+                    query: { status: data.status_order },
+                    replace: true,
+                })
+            "
         >
             <IconArrowLeft width="30px" />
         </button>

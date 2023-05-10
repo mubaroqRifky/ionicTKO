@@ -380,7 +380,9 @@ export default {
         const contentContainer = document.getElementById("slide-container");
         this.addSlideListener(contentContainer, this.slideHandler);
 
-        this.loadDataIndex();
+        const { status = this.STATUS[0].value } = this.$route.query;
+        const index = this.STATUS.findIndex((val) => val.value == status);
+        this.tabHandler(index, this.STATUS[index]);
     },
 };
 </script>
