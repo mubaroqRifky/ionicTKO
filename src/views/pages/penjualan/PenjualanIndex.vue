@@ -379,7 +379,7 @@ export default {
     methods: {
         qtyHandler(item, type, value) {
             const prevValue = this.form_detail[item.kd_benih][0];
-            if (prevValue.match(/^0[^.,]/)) {
+            if (String(prevValue).match(/^0[^.,]/)) {
                 value = value.split("").pop();
             }
 
