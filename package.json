@@ -22,6 +22,7 @@
         "@ionic/vue-router": "^7.0.0",
         "@vuepic/vue-datepicker": "^4.5.1",
         "axios": "^1.4.0",
+        "firebase": "^9.21.0",
         "ionicons": "^7.0.0",
         "moment": "^2.29.4",
         "sass": "^1.62.1",
