@@ -149,7 +149,6 @@
                     </button>
                     <input
                         class="w-full bg-primary outline-none border-none text-center"
-                        type="number"
                         v-model="form_detail[item.kd_benih][0]"
                         @input="(e) => qtyHandler(item, 'add', e.target.value)"
                     />
@@ -239,9 +238,7 @@
                 <div
                     class="flex gap-2 items-center border border-solid border-gray-dark rounded-md p-1"
                     style="font-size: 0.7rem"
-                    v-for="(item, index) in Object.values(form_detail).filter(
-                        (val) => val[0] > 0
-                    )"
+                    v-for="(item, index) in filterData"
                     :key="index"
                 >
                     <div class="flex-1 text-left">{{ item[2] }}</div>
@@ -285,6 +282,7 @@ import Customer from "@/apis/Customer";
 import Order from "@/apis/Order";
 
 import moment from "moment";
+import { formatRupiah, formatRupiahToNumber } from "@/helpers/inputCurrency";
 
 export default {
     data() {
@@ -351,39 +349,54 @@ export default {
         },
         canGoToDetail() {
             const formDetailArray = Object.values(this.form_detail);
-            return !formDetailArray.some((val) => val[0] > 0);
+            return !formDetailArray.some(
+                (val) => formatRupiahToNumber(val[0]) > 0
+            );
         },
         hargaTotal() {
             return Object.values(this.form_detail).reduce((prev, curr) => {
                 const [qty, price] = curr;
-                const qtyNumber = Number(qty || 0);
-                const priceNumber = Number(price || 0);
-                const prevNumber = Number(prev || 0);
-
-                console.log();
+                console.log(qty, price, prev, "default");
+                const qtyNumber = formatRupiahToNumber(qty || 0);
+                const priceNumber = price || 0;
+                const prevNumber = prev || 0;
 
                 if (qtyNumber > 0) {
                     const result = qtyNumber * priceNumber + prevNumber;
-                    return Number(result.toFixed(2));
+                    console.log(result, "result");
+                    return result;
                 } else {
-                    return Number(prevNumber);
+                    return prevNumber;
                 }
             }, 0);
+        },
+        filterData() {
+            return Object.values(this.form_detail).filter(
+                (val) => formatRupiahToNumber(val[0]) > 0
+            );
         },
     },
     methods: {
         qtyHandler(item, type, value) {
+            const prevValue = this.form_detail[item.kd_benih][0];
+            if (prevValue.match(/^0[^.,]/)) {
+                value = value.split("").pop();
+            }
+
+            let currValue = formatRupiahToNumber(
+                this.form_detail[item.kd_benih][0]
+            );
             // value, harga
             if (type == "plus") {
-                this.form_detail[item.kd_benih][0]++;
+                this.form_detail[item.kd_benih][0] = formatRupiah(++currValue);
                 this.form_detail[item.kd_benih][1] = item.price;
                 this.form_detail[item.kd_benih][2] = item.nm_benih;
             } else if (type == "add") {
-                this.form_detail[item.kd_benih][0] = Number(value);
+                this.form_detail[item.kd_benih][0] = formatRupiah(value);
                 this.form_detail[item.kd_benih][1] = item.price;
                 this.form_detail[item.kd_benih][2] = item.nm_benih;
             } else {
-                this.form_detail[item.kd_benih][0]--;
+                this.form_detail[item.kd_benih][0] = formatRupiah(--currValue);
                 this.form_detail[item.kd_benih][1] = item.price;
                 this.form_detail[item.kd_benih][2] = item.nm_benih;
             }
