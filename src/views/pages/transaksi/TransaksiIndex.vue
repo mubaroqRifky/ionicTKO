@@ -47,7 +47,8 @@
     </div>
 
     <section
-        class="mt-10 px-4 py-4 grid gap-4 text-sm overflow-auto scroll-hidden h-full content-start"
+        class="mt-10 px-4 py-4 grid gap-4 text-sm overflow-auto scroll-hidden h-full"
+        :class="!data.length ? '' : 'content-start'"
         id="slide-container"
         @scroll="scrollHandler"
     >
@@ -55,6 +56,12 @@
             class="card-container overflow-hidden"
             v-for="(item, index) in data"
             :key="index"
+            @click="
+                $router.push({
+                    name: 'transaksi-detail',
+                    params: { id: item.kd_order_header },
+                })
+            "
         >
             <div class="px-4 py-4 text-sm">
                 <div class="flex justify-end mb-2">

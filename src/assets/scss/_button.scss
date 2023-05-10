@@ -19,6 +19,10 @@ button {
     @apply px-4 py-1 text-xs;
 }
 
+.btn.btn-md {
+    @apply px-4 py-2.5 text-sm;
+}
+
 .btn-primary {
     @apply bg-success hover:bg-[#1ba7f3];
 
