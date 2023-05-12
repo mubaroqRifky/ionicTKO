@@ -241,7 +241,7 @@
                     :key="index"
                 >
                     <div class="flex-1 text-left">{{ item[2] }}</div>
-                    <div class="w-14">{{ item[0] }}</div>
+                    <div class="w-20">{{ item[0] }}</div>
                     <div class="w-24">Rp {{ item[1] }}</div>
                 </div>
                 <div class="flex flex-col justify-end mt-2">
@@ -355,14 +355,12 @@ export default {
         hargaTotal() {
             return Object.values(this.form_detail).reduce((prev, curr) => {
                 const [qty, price] = curr;
-                console.log(qty, price, prev, "default");
                 const qtyNumber = formatRupiahToNumber(qty || 0);
                 const priceNumber = price || 0;
                 const prevNumber = prev || 0;
 
                 if (qtyNumber > 0) {
                     const result = qtyNumber * priceNumber + prevNumber;
-                    console.log(result, "result");
                     return result;
                 } else {
                     return prevNumber;
@@ -387,7 +385,11 @@ export default {
             );
             // value, harga
             if (type == "plus") {
-                this.form_detail[item.kd_benih][0] = formatRupiah(++currValue);
+                this.form_detail[item.kd_benih][0] = formatRupiah(
+                    ++currValue,
+                    null,
+                    "dot"
+                );
                 this.form_detail[item.kd_benih][1] = item.price;
                 this.form_detail[item.kd_benih][2] = item.nm_benih;
             } else if (type == "add") {
@@ -395,7 +397,11 @@ export default {
                 this.form_detail[item.kd_benih][1] = item.price;
                 this.form_detail[item.kd_benih][2] = item.nm_benih;
             } else {
-                this.form_detail[item.kd_benih][0] = formatRupiah(--currValue);
+                this.form_detail[item.kd_benih][0] = formatRupiah(
+                    --currValue,
+                    null,
+                    "dot"
+                );
                 this.form_detail[item.kd_benih][1] = item.price;
                 this.form_detail[item.kd_benih][2] = item.nm_benih;
             }

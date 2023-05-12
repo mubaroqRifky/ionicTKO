@@ -3,7 +3,7 @@
         <div class="card-container">
             <div class="px-6 py-6 pr-5 flex gap-4">
                 <div
-                    class="rounded-full bg-darkGray w-20 h-20 object-contain flex justify-center items-center text-gray-dark"
+                    class="rounded-full bg-gray w-20 h-20 object-contain flex justify-center items-center text-gray-dark"
                 >
                     <img
                         v-if="getUserState.picture"
