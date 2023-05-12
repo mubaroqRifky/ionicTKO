@@ -47,16 +47,17 @@
                 />
 
                 <IconArrow
-                    className="absolute text-darkGray right-6 top-1/2 -translate-y-1/2 z-10 transform transition-all"
+                    className="absolute text-darkGray top-1/2 -translate-y-1/2 z-10 transform transition-all"
                     :class="[
                         list_input ? 'rotate-180' : 'rotate-0',
                         disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+                        required && validity.message ? 'right-8' : 'right-4',
                     ]"
                     :bold="true"
                 />
 
                 <span
-                    class="absolute right-1 transform z-10 icon-error top-1/2 -translate-y-1/2"
+                    class="absolute right-2 transform z-10 icon-error top-1/2 -translate-y-1/2"
                     :class="[disabled ? 'bg-softGray' : 'bg-white']"
                     v-if="required && validity.message"
                 >

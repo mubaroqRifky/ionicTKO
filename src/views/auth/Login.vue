@@ -19,7 +19,7 @@
             </p>
 
             <button
-                class="w-full border px-4 py-2 rounded-3xl flex gap-2 items-center justify-center justify-items-center font-semibold hover:bg-lightGray transition-all hover:border-primary mt-4"
+                class="w-full border border-solid border-darkGray px-4 py-2 rounded-3xl flex gap-2 items-center justify-center justify-items-center font-semibold hover:bg-lightGray transition-all hover:border-primary mt-4"
                 :class="
                     loading &&
                     'bg-[lightgray] hover:bg-[lightgray] border-[lightgray] hover:border-[lightgray] text-white'
@@ -30,6 +30,13 @@
             >
                 <IconGoogle width="25px" />
                 Login with Google
+            </button>
+
+            <button
+                @click="googleLogin"
+                class="w-full border border-solid border-darkGray px-4 py-4 rounded-3xl flex gap-2 items-center justify-center justify-items-center font-semibold hover:bg-lightGray transition-all hover:border-primary"
+            >
+                Google Login Firebase
             </button>
 
             <GoogleLogin
@@ -66,6 +73,9 @@ import User from "@/controllers/state/User";
 
 import Modal from "@/controllers/state/Modal";
 import InputValidation from "@/controllers/state/InputValidation";
+
+import { provider } from "@/plugins/firebase";
+import { getAuth, signInWithPopup } from "firebase/auth";
 
 export default {
     name: "Login",
@@ -145,6 +155,21 @@ export default {
             }
         },
 
+        googleLogin() {
+            const auth = getAuth();
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    console.log(result, "result");
+
+                    const id_token = result._tokenResponse.oauthIdToken;
+
+                    this.form.access_token = id_token;
+                    this.loginHandler(id_token);
+                })
+                .catch((error) => {
+                    console.log(error, "error");
+                });
+        },
         googleLoginHandler() {
             try {
                 const btn = this.$refs?.ref_btn?.btn;

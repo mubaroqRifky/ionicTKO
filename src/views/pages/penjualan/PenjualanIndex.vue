@@ -22,7 +22,6 @@
             <CustomSelect
                 dir="col"
                 :api="api_customer"
-                class="lg:w-3/4"
                 :reduce="(val) => ({ selected: val.kd_customer, data: val })"
                 :createOption="
                     (val) => ({
@@ -191,7 +190,7 @@
         </div>
 
         <div
-            class="grid mt-5 fixed bottom-0 left-0 right-0 p-4 bg-white outline-none border-gray border-t-2 border-solid"
+            class="grid mt-5 fixed bottom-0 left-0 right-0 p-4 bg-white outline-none border-gray border-t-2 border-solid mobile-width-constraint"
         >
             <button
                 class="btn btn-secondary"

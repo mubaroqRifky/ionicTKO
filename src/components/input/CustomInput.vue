@@ -106,7 +106,7 @@
                 ></textarea>
 
                 <span
-                    class="absolute right-1 transform z-10 icon-error"
+                    class="absolute right-2 transform z-10 icon-error"
                     :class="[
                         disabled ? 'bg-softGray' : 'bg-white',
                         type == 'textarea'
