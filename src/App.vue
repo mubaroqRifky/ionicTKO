@@ -7,6 +7,8 @@
 
 <script>
 import { IonApp } from "@ionic/vue";
+import { App as CapacitorApp } from "@capacitor/app";
+import { Dialog } from "@capacitor/dialog";
 
 export default {
     data() {
@@ -19,6 +21,18 @@ export default {
         setTimeout(() => {
             this.splash = false;
         }, 1000);
+    },
+    mounted() {
+        CapacitorApp.addListener("backButton", ({ canGoBack }) => {
+            if (!canGoBack) {
+                Dialog.confirm({
+                    title: "Confirm",
+                    message: `Are you sure to exit the App?`,
+                }).then(({ value }) => {
+                    if (value) CapacitorApp.exitApp();
+                });
+            }
+        });
     },
 };
 </script>
