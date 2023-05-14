@@ -29,6 +29,9 @@
 import NavBottom from "./NavBottom.vue";
 import Modal from "@/controllers/state/Modal";
 
+import { StatusBar, Style } from "@capacitor/status-bar";
+import { isPlatform } from "@ionic/vue";
+
 export default {
     data() {
         return {
@@ -49,6 +52,14 @@ export default {
                 throw new ErrorHandler(error);
             }
         },
+    },
+    created() {
+        console.log(Style);
+        if (isPlatform("mobile") && !isPlatform("mobileweb")) {
+            StatusBar.setOverlaysWebView({ overlay: false });
+            StatusBar.setStyle({ style: Style.Dark });
+            StatusBar.setBackgroundColor({ color: "#c40001" });
+        }
     },
 };
 </script>

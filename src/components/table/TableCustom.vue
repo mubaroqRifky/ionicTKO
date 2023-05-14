@@ -150,7 +150,7 @@ import SelectMinPage from "./SelectMinPage.vue";
 import CustomPaginate from "./CustomPaginate.vue";
 // import NoDataInTable from "./NoDataInTable.vue";
 
-import moment from "moment";
+import { format } from "date-fns";
 
 export default {
     data() {
@@ -353,7 +353,7 @@ export default {
                 return this.getDeepAttr(attr, item);
             } else {
                 return val.type == "date"
-                    ? moment(item[val.field]).format("DD-MM-YYYY")
+                    ? format(item[val.field], "DD-MM-YYYY")
                     : item[val.field];
             }
         },

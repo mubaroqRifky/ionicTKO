@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">mtkoApp</string>
+    <string name="title_activity_main">mtkoApp</string>
+    <string name="package_name">mtko.itdev.asia</string>
+    <string name="custom_url_scheme">mtko.itdev.asia</string>
+    <string name="server_client_id">537737760177-baleph0vkk04pdkdch8jaj74k0a73rdi.apps.googleusercontent.com</string>
+</resources>

@@ -25,18 +25,11 @@
                     'bg-[lightgray] hover:bg-[lightgray] border-[lightgray] hover:border-[lightgray] text-white'
                 "
                 :disabled="loading"
-                @click="googleLoginHandler"
+                @click="googleLoginAndroid"
                 alt="Sign In"
             >
                 <IconGoogle width="25px" />
                 Login with Google
-            </button>
-
-            <button
-                @click="googleLogin"
-                class="w-full border border-solid border-darkGray px-4 py-4 rounded-3xl flex gap-2 items-center justify-center justify-items-center font-semibold hover:bg-lightGray transition-all hover:border-primary"
-            >
-                Google Login Firebase
             </button>
 
             <GoogleLogin
@@ -74,8 +67,10 @@ import User from "@/controllers/state/User";
 import Modal from "@/controllers/state/Modal";
 import InputValidation from "@/controllers/state/InputValidation";
 
-import { provider } from "@/plugins/firebase";
-import { getAuth, signInWithPopup } from "firebase/auth";
+import { StatusBar } from "@capacitor/status-bar";
+
+import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
+import { isPlatform } from "@ionic/vue";
 
 export default {
     name: "Login",
@@ -139,6 +134,7 @@ export default {
 
         async loginHandler(id_token) {
             try {
+                this.form.access_token = id_token;
                 this.loading = true;
                 const { data } = await this.api.postData({ ...this.form });
 
@@ -155,20 +151,14 @@ export default {
             }
         },
 
-        googleLogin() {
-            const auth = getAuth();
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    console.log(result, "result");
-
-                    const id_token = result._tokenResponse.oauthIdToken;
-
-                    this.form.access_token = id_token;
-                    this.loginHandler(id_token);
-                })
-                .catch((error) => {
-                    console.log(error, "error");
-                });
+        async googleLoginAndroid() {
+            try {
+                const { authentication } = await GoogleAuth.signIn();
+                this.loginHandler(authentication.idToken);
+            } catch (error) {
+                alert(JSON.stringify(error));
+                throw new ErrorHandler(error);
+            }
         },
         googleLoginHandler() {
             try {
@@ -188,15 +178,20 @@ export default {
                 console.log(id_token, "id_token");
 
                 this.loading = true;
-                this.form.access_token = id_token;
                 this.loginHandler(id_token);
             } catch (error) {
                 throw new ErrorHandler(error);
             }
         },
     },
-    created() {},
-    mounted() {},
+    created() {
+        if (isPlatform("mobile") && !isPlatform("mobileweb")) {
+            StatusBar.setOverlaysWebView({ overlay: true });
+        }
+    },
+    mounted() {
+        GoogleAuth.initialize();
+    },
 };
 </script>
 

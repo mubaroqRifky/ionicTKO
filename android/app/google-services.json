@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "537737760177",
+    "firebase_url": "https://catch-of-the-day-a8059-default-rtdb.firebaseio.com",
+    "project_id": "catch-of-the-day-a8059",
+    "storage_bucket": "catch-of-the-day-a8059.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537737760177:android:666fad8ffef9fae9b84190",
+        "android_client_info": {
+          "package_name": "mtko.itdev.asia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537737760177-acodeli3ci8omk0o3pkupvuhbdjlfv11.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mtko.itdev.asia",
+            "certificate_hash": "11960562d2c688854f5113e169821611c2b12de8"
+          }
+        },
+        {
+          "client_id": "537737760177-baleph0vkk04pdkdch8jaj74k0a73rdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5_af0bGpqN4i36TbLb_AnE_MTzJk6juk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537737760177-baleph0vkk04pdkdch8jaj74k0a73rdi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

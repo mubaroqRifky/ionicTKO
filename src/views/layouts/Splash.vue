@@ -9,9 +9,17 @@
 <script>
 import IconTakingOrder from "@/components/icons/IconCPP.vue";
 
+import { StatusBar } from "@capacitor/status-bar";
+import { isPlatform } from "@ionic/vue";
+
 export default {
     components: {
         IconTakingOrder,
+    },
+    created() {
+        if (isPlatform("mobile") && !isPlatform("mobileweb")) {
+            StatusBar.setOverlaysWebView({ overlay: true });
+        }
     },
 };
 </script>

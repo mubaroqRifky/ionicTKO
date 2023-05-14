@@ -6,10 +6,7 @@
             <IconArrowLeft width="30px" />
         </button>
 
-        <h2
-            class="flex-1 text-center font-bold text-md"
-            :class="page_show != PAGE_SHOW.FORM ? '-ml-6' : ''"
-        >
+        <h2 class="flex-1 text-center font-bold text-md -ml-6">
             {{ getTitle }}
         </h2>
     </header>
@@ -280,7 +277,7 @@ import Loading from "@/controllers/state/Loading";
 import Customer from "@/apis/Customer";
 import Order from "@/apis/Order";
 
-import moment from "moment";
+import { format } from "date-fns";
 import { formatRupiah, formatRupiahToNumber } from "@/helpers/inputCurrency";
 
 export default {
@@ -412,7 +409,7 @@ export default {
             this.form[key] = val;
         },
         inputDateHandler(date, key) {
-            const result = moment(date).format("YYYY-MM-DD");
+            const result = format(date, "DD-MM-YYYY");
 
             this.form[key] = result;
         },
