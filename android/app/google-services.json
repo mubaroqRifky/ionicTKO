@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "537737760177-mbdn7qv7j2glqrtrt09ig263oui8jiue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mtko.itdev.asia",
+            "certificate_hash": "0a7d90f9c6944491ae0ca02fb72f6b8e1f0ed420"
+          }
+        },
+        {
           "client_id": "537737760177-baleph0vkk04pdkdch8jaj74k0a73rdi.apps.googleusercontent.com",
           "client_type": 3
         }
