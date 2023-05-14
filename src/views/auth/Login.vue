@@ -156,8 +156,11 @@ export default {
                 const { authentication } = await GoogleAuth.signIn();
                 this.loginHandler(authentication.idToken);
             } catch (error) {
-                alert(JSON.stringify(error));
-                throw new ErrorHandler(error);
+                if (error.message) {
+                    throw new ErrorHandler(error);
+                } else {
+                    throw new ErrorHandler(JSON.stringify(error));
+                }
             }
         },
         googleLoginHandler() {
